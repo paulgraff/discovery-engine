@@ -2,25 +2,41 @@
 $(function() {
 	$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
 	{
-		//tags: "mount rainier",
+		tags: "cat, dog, mountain, fish, nature",
 		tagmode: "any",
 		format: "json"
 	},
 	function(data) {
+		var winHeight = $(window).height();
+		var winWidth = $(window).width();
+		var tileWidth = winWidth / 5;
+		var tileHeight = winHeight / 4;
+		
 		$.each(data.items, function(i,item){
-			var html = "<img class='tile'/>";
-			$(html).attr("src", item.media.m).appendTo("#images");
+			var html = "<div class='tile'><img src=\"" + item.media.m + "\"/></div>";
+			$("#images").append(html);
+		});
+		
+		
+		
+		
+		
+		
+		
+		$(".tile").css({
+		   width : tileWidth,
+		   height : tileHeight
 		});
 	});
 });
 
-$('#deItem').click() {
+$('.deItem').click(function() {
 
-}
+});
 
 var DiscoveryEngine = {
 	data: {},
-	template: '<li>{0}</li>'
+	template: '<li>{0}</li>',
 	reload: function() {
 		result = [];
 		// put in the api call to flickr here
@@ -38,3 +54,7 @@ String.prototype.format = function() {
     ;
   });
 };
+
+$('.tile').click(function() {
+	
+});

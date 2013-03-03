@@ -1,9 +1,11 @@
 "use strict";
 
-$(document).ready(function() {
-	$(document).on('click', '.tile', function() {
-		DiscoveryEngine.reload();
-	});
+$(document).on('click', '.tile', function() {
+	DiscoveryEngine.reload();
+});
+
+$(window).resize(function() {
+	DiscoveryEngine.resizeWindow();
 });
 
 var DiscoveryEngine = {
@@ -22,16 +24,20 @@ var DiscoveryEngine = {
 	},
 	update: function(data) {
 		var body = '';
-		var winHeight = $(window).height();
-		var winWidth = $(window).width();
-		var tileWidth = winWidth / 5;
-		var tileHeight = winHeight / 4;
-
 		$.each(data.items, function(i,item){
 			body += DiscoveryEngine.template.format(item.media.m);
 		});
 
 		$('#images').html(body);
+		DiscoveryEngine.resizeWindow();
+
+	},
+	resizeWindow: function() {
+		var winHeight = $(window).height();
+		var winWidth = $(window).width();
+		var tileWidth = winWidth / 5;
+		var tileHeight = winHeight / 4;
+
 		$(".tile").css({
 		   width : tileWidth,
 		   height : tileHeight

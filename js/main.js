@@ -1,48 +1,51 @@
 "use strict";
-$(function() {
-	$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
-	{
-		tags: "cat, dog, mountain, fish, nature",
-		tagmode: "any",
-		format: "json"
-	},
-	function(data) {
-		var winHeight = $(window).height();
-		var winWidth = $(window).width();
-		var tileWidth = winWidth / 5;
-		var tileHeight = winHeight / 4;
-		
-		$.each(data.items, function(i,item){
-			var html = "<div class='tile'><img src=\"" + item.media.m + "\"/></div>";
-			$("#images").append(html);
-		});
-		
-		
-		
-		
-		
-		
-		
-		$(".tile").css({
-		   width : tileWidth,
-		   height : tileHeight
-		});
-	});
+
+$(document).on('click', '.tile', function() {
+	DiscoveryEngine.reload();
 });
 
-$('.deItem').click(function() {
-
+$(window).resize(function() {
+	DiscoveryEngine.resizeWindow();
 });
 
 var DiscoveryEngine = {
 	data: {},
-	template: '<li>{0}</li>',
+	template: '<div class="tile"><img src="{0}"/></div>',
 	reload: function() {
-		result = [];
-		// put in the api call to flickr here
-		return result;
+		$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+			{
+				tags: "cat, dog, mountain, fish, nature, food",
+				tagmode: "any",
+				format: "json"
+			},
+			function(data) {
+				DiscoveryEngine.update(data);
+			});
 	},
-}
+	update: function(data) {
+		var body = '';
+		$.each(data.items, function(i,item){
+			body += DiscoveryEngine.template.format(item.media.m);
+		});
+
+		$('#images').html(body);
+		DiscoveryEngine.resizeWindow();
+
+	},
+	resizeWindow: function() {
+		var winHeight = $(window).height();
+		var winWidth = $(window).width();
+		var tileWidth = winWidth / 5;
+		var tileHeight = winHeight / 4;
+
+		$(".tile").css({
+		   width : tileWidth,
+		   height : tileHeight
+		});
+	}
+};
+
+DiscoveryEngine.reload();
 
  /* Protype additions */
 String.prototype.format = function() {
@@ -54,6 +57,7 @@ String.prototype.format = function() {
     ;
   });
 };
+
 
 
 	$(document).on('click', '.tile', function () {

@@ -21,7 +21,6 @@ var DiscoveryEngine = {
 			function(data) {
 				DiscoveryEngine.update(data);
 			});
-<<<<<<< HEAD
 	},
 	update: function(data) {
 		var body = '';
@@ -33,19 +32,6 @@ var DiscoveryEngine = {
 		DiscoveryEngine.resizeWindow();
 
 	},
-=======
-	},
-	update: function(data) {
-		var body = '';
-		$.each(data.items, function(i,item){
-			body += DiscoveryEngine.template.format(item.media.m);
-		});
-
-		$('#images').html(body);
-		DiscoveryEngine.resizeWindow();
-
-	},
->>>>>>> 7b9f0542c5fa061c2b093202aa86122376ee0b19
 	resizeWindow: function() {
 		var winHeight = $(window).height();
 		var winWidth = $(window).width();
@@ -72,8 +58,6 @@ String.prototype.format = function() {
   });
 };
 
-<<<<<<< HEAD
-
 
 	$(document).on('click', '.tile', function () {
 	    $('.tile').flippy({
@@ -87,8 +71,4 @@ String.prototype.format = function() {
 			//alert("ok, it's flipped :)");
 		}
 	});
-=======
-$('.tile').click(function() {
-	
->>>>>>> 7b9f0542c5fa061c2b093202aa86122376ee0b19
 });

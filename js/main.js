@@ -1,18 +1,18 @@
 "use strict";
 
 $(document).ready(function() {
-	$('#images').click(function() {
+	$(document).on('click', '.tile', function() {
 		DiscoveryEngine.reload();
 	});
 });
 
 var DiscoveryEngine = {
 	data: {},
-	template: '<img clas="tile" src="{0}"/>',
+	template: '<div class="tile"><img src="{0}"/></div>',
 	reload: function() {
 		$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
 			{
-				//tags: "mount rainier",
+				tags: "cat, dog, mountain, fish, nature, food",
 				tagmode: "any",
 				format: "json"
 			},
@@ -22,10 +22,20 @@ var DiscoveryEngine = {
 	},
 	update: function(data) {
 		var body = '';
+		var winHeight = $(window).height();
+		var winWidth = $(window).width();
+		var tileWidth = winWidth / 5;
+		var tileHeight = winHeight / 4;
+
 		$.each(data.items, function(i,item){
 			body += DiscoveryEngine.template.format(item.media.m);
 		});
+
 		$('#images').html(body);
+		$(".tile").css({
+		   width : tileWidth,
+		   height : tileHeight
+		});
 	}
 };
 
@@ -41,3 +51,7 @@ String.prototype.format = function() {
     ;
   });
 };
+
+$('.tile').click(function() {
+	
+});

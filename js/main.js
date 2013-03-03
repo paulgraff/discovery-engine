@@ -55,6 +55,17 @@ String.prototype.format = function() {
   });
 };
 
-$('.tile').click(function() {
-	
+
+	$(document).on('click', '.tile', function () {
+	    $('.tile').flippy({
+		content:"Hi !",
+		direction:"RIGHT",
+		duration:"750",
+		onStart:function(){
+			//alert("Let's flip");
+		},
+		onFinish:function(){
+			//alert("ok, it's flipped :)");
+		}
+	});
 });

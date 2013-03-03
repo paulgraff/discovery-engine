@@ -57,7 +57,3 @@ String.prototype.format = function() {
     ;
   });
 };
-
-$('.tile').click(function() {
-	
-});

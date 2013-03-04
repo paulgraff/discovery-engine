@@ -5,6 +5,15 @@ $(document).on('click', '.tile', function() {
 	DiscoveryEngine.reload();
 });
 
+$(document).on('mouseover', '.tile', function() {
+	$(this).find('h4').show();
+});
+
+$(document).on('mouseleave', '.tile', function() {
+	$(this).find('h4').hide();
+});
+
+
 $(window).resize(function() {
 	DiscoveryEngine.resizeWindow();
 });
@@ -13,7 +22,7 @@ var DiscoveryEngine = {
 	tags: ['cat', 'dog', 'mountain', 'fish', 'nature', 'food'],
 	template: '<div class="tile">' +
 				'<img src="{0}" alt="Something you want to buy - $590"/>' +
-				'<h2>A Movie in the Park:<br />Kung Fu Panda</h2>' +
+				'<h4><span>A Movie in the Park:<span class="spacer"></span><br /><span class="spacer"></span>Kung Fu Panda</span></h4>' +
 				'<a>' +
 				'</div>',
 	reload: function() {

@@ -13,16 +13,20 @@ $(document).on('mouseleave', '.tile', function() {
 	$(this).find('h4').hide();
 });
 
+$(document).on('click', '.tile h4', function() {
+	alert('going to product page');
+});
 
 $(window).resize(function() {
 	DiscoveryEngine.resizeWindow();
 });
 
 var DiscoveryEngine = {
-	tags: ['cat', 'dog', 'mountain', 'fish', 'nature', 'food'],
+	tags: ['cat', 'dog', 'mountain', 'fish', 'nature', 'food', 'purse', 'hat', 'silverware'],
 	template: '<div class="tile">' +
+				
 				'<img src="{0}" alt="Something you want to buy - $590"/>' +
-				'<h4><span>A Movie in the Park:<span class="spacer"></span><br /><span class="spacer"></span>Kung Fu Panda</span></h4>' +
+				'<h4><span>{1}<span class="spacer"></span><br /></h4>' +
 				'<a>' +
 				'</div>',
 	reload: function() {
@@ -38,8 +42,9 @@ var DiscoveryEngine = {
 	},
 	update: function(data) {
 		var body = '';
+		console.log(data);
 		$.each(data.items, function(i,item){
-			body += DiscoveryEngine.template.format(item.media.m);
+			body += DiscoveryEngine.template.format(item.media.m, item.title);
 		});
 
 		$('#images').html(body);
@@ -56,6 +61,11 @@ var DiscoveryEngine = {
 		$(".tile").css({
 		   width : tileWidth,
 		   height : tileHeight
+		});
+
+		$("img").css({
+		   'min-width' : tileWidth,
+		   'min-height' : tileHeight
 		});
 		// $('.tile').capty();
 	}

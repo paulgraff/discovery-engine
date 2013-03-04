@@ -15,6 +15,7 @@ $(document).on('mouseleave', '.tile', function() {
 
 $(document).on('click', '.tile h4', function() {
 	alert('going to product page');
+	return false;
 });
 
 $(window).resize(function() {

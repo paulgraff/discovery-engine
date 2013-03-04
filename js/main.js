@@ -1,6 +1,7 @@
 "use strict";
 
 $(document).on('click', '.tile', function() {
+	$(".tile").fadeOut();
 	DiscoveryEngine.reload();
 });
 
@@ -9,7 +10,7 @@ $(window).resize(function() {
 });
 
 var DiscoveryEngine = {
-	data: {},
+	tags: ['cat', 'dog', 'mountain', 'fish', 'nature', 'food'],
 	template: '<div class="tile">' +
 				'<img src="{0}" alt="Something you want to buy - $590"/>' +
 				'<h2>A Movie in the Park:<br />Kung Fu Panda</h2>' +
@@ -18,7 +19,7 @@ var DiscoveryEngine = {
 	reload: function() {
 		$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
 			{
-				tags: "cat, dog, mountain, fish, nature, food",
+				tags: DiscoveryEngine.tags[Math.floor(Math.random() * DiscoveryEngine.tags.length)],
 				tagmode: "any",
 				format: "json"
 			},
@@ -34,6 +35,8 @@ var DiscoveryEngine = {
 
 		$('#images').html(body);
 		DiscoveryEngine.resizeWindow();
+			$(".tile").fadeIn();
+
 	},
 	resizeWindow: function() {
 		var winHeight = $(window).height();

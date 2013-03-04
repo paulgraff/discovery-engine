@@ -10,10 +10,11 @@ $(window).resize(function() {
 });
 
 var DiscoveryEngine = {
-	tags: ['cat', 'dog', 'mountain', 'fish', 'nature', 'food'],
+	tags: ['cat', 'dog', 'mountain', 'fish', 'nature', 'food', 'purse', 'hat', 'silverware'],
 	template: '<div class="tile">' +
+				
 				'<img src="{0}" alt="Something you want to buy - $590"/>' +
-				'<h2>A Movie in the Park:<br />Kung Fu Panda</h2>' +
+				'<h2>{1}</h2>' +
 				'<a>' +
 				'</div>',
 	reload: function() {
@@ -29,8 +30,9 @@ var DiscoveryEngine = {
 	},
 	update: function(data) {
 		var body = '';
+		console.log(data);
 		$.each(data.items, function(i,item){
-			body += DiscoveryEngine.template.format(item.media.m);
+			body += DiscoveryEngine.template.format(item.media.m, item.title);
 		});
 
 		$('#images').html(body);
@@ -47,6 +49,11 @@ var DiscoveryEngine = {
 		$(".tile").css({
 		   width : tileWidth,
 		   height : tileHeight
+		});
+
+		$("img").css({
+		   'min-width' : tileWidth,
+		   'min-height' : tileHeight
 		});
 		// $('.tile').capty();
 	}
